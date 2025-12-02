@@ -58,4 +58,8 @@ while (true)
     }
     Console.WriteLine($" First Player: {firstPlayerPoints}");
     Console.WriteLine($"Second player: {secondPlayerPoints}");
+    if (!(firstPlayerPoints >= 3 || secondPlayerPoints >= 3))
+    {
+        break;
+    }
 }
