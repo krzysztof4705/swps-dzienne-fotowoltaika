@@ -1,4 +1,11 @@
-﻿List<string> allowedSigns = ["rock", "paper", "scissors"];
+﻿List<string> allowedSigns = ["rock", "paper", "scissors", "lizard","spock"];
+Dictionary<string, List<string>> WiningMap = new();
+WiningMap["rock"]= ["scissors", "lizard"];
+WiningMap["paper"]=["rock", "spock"];
+WiningMap["scissors"]=["paper", "lizard"];
+WiningMap["lizard"]=["paper","spock"];
+WiningMap["spock"]=["rock", "scissors"];
+
 string GetCorrectSign(string playerName)
 {
     Console.WriteLine($"{playerName}, choose your sign ({string.Join('/', allowedSigns)})");
@@ -26,25 +33,19 @@ int firstPlayerPoints = 0;
 int secondPlayerPoints = 0;
 while (true)
 {
-    Console.WriteLine("Let's play Rock-Paper-Scissors!");
+    Console.WriteLine("Let's play Rock-Paper-Scissors-Lizard-Spock!");
 
 
-    string firstSign = GetCorrectSign("Player 1");
-    string secondSign = GetCorrectRandomSign("Player 2");
-
-    // 1. Pobierz indeks znaku podanego przez osobę drugą (np. 0, 1, 2) - nazwę to secondSignIndex
-    int secondSignIndex = allowedSigns.IndexOf(secondSign);
-    // 2. Wylicz indeks znaku, który wygrywa z podanym przez osobę drugą - wzór - (secondSignIndex + 1) % rozmiarListy
-    int winningSignIndex = (secondSignIndex + 1) % allowedSigns.Count;
-    // 3. Czy indeks znaku podanego przez pierwszą osobę to indeks wyliczony w punkcie 2.
-    int firstSignIndex = allowedSigns.IndexOf(firstSign);
+    string firstSign = GetCorrectSign("Player 1"); // P1
+    string secondSign = GetCorrectSign("Player 2"); // P2
+    List<string> signsLosingwithfirstSigns = WiningMap[firstSign];
 
 
     if (firstSign.Equals(secondSign, stringComparison))
     {
         Console.WriteLine("It's a draw!");
     }
-    else if (firstSignIndex == winningSignIndex)
+    else if (signsLosingwithfirstSigns.Contains(secondSign, StringComparer.OrdinalIgnoreCase))
     {
         Console.WriteLine("First player won!");
         //firstPlayerPoints = firstPlayerPoints + 1;
